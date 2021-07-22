@@ -42,8 +42,45 @@ class Airplane {
 */
 
 class Person {
-  
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  }
+  eat(food){
+    if(this.stomach.length < 10){
+    this.stomach.push(food);
+    return `${this.name} just ate some ${food}`;
+    } else {
+      return `${this.name} can't eat ${food}. Their stomach is too full!`
+    }
+  }
+  poop(){
+    this.stomach = [];
+    return `${this.name} took a huge crap`
+  }
+  toString() {
+    return `${this.name}, ${this.age}`;
+  }
 }
+
+const brent = new Person ("Brent", 32);
+
+console.log("Task 1 ", brent);
+console.log (brent.eat("Cereal"));
+console.log (brent.eat("Bacon"));
+console.log (brent.eat("Milk"));
+console.log (brent.eat("Banana"));
+console.log (brent.eat("Sausage"));
+console.log (brent.eat("Pancakes"));
+console.log (brent.eat("Orange Juice"));
+console.log (brent.eat("Popcorn"));
+console.log (brent.eat("Chicken"));
+console.log (brent.eat("Pizza"));
+console.log (brent.eat("Roastbeef"));
+console.log (brent);
+console.log (brent.poop())
+console.log (brent)
 
 /*
   TASK 2
@@ -60,8 +97,37 @@ class Person {
 */
 
 class Car {
-  
+  constructor(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons){
+    this.tank = this.tank + gallons;
+    return `Your ${this.model} now has ${gallons} gallons of gas.`;
+  }
+  drive(distance) {
+    let driveableDistance = this.tank * this.milesPerGallon;
+    if(distance <= driveableDistance) {
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - (distance/this.milesPerGallon);
+      return `You have ${this.tank} gallons left and can go ${driveableDistance-distance} more miles.`
+    } else {
+      this.odometer = this.odometer + driveableDistance;
+      this.tank = this.tank - (driveableDistance/this.milesPerGallon);
+      return `I ran out of fuel at ${this.odometer} miles!`;
+    }
+  }
 }
+
+
+const matrix = new Car("Toyota Matrix", 25);
+console.log ("Task 2", matrix);
+console.log (matrix.fill(10));
+console.log (matrix);
+console.log (matrix.drive(150));
+console.log (matrix);
 
 /*
   TASK 3
@@ -76,7 +142,14 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-  
+  constructor(attributes) {
+    this.name = attributes.name;
+    this.age = attributes.age;
+    this.location = attributes.location;
+  }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`;
+  }
 }
 
 /*
