@@ -64,23 +64,23 @@ class Person {
   }
 }
 
-const brent = new Person ("Brent", 32);
+const jack = new Person ("Brent", 32);
 
-console.log("Task 1 ", brent);
-console.log (brent.eat("Cereal"));
-console.log (brent.eat("Bacon"));
-console.log (brent.eat("Milk"));
-console.log (brent.eat("Banana"));
-console.log (brent.eat("Sausage"));
-console.log (brent.eat("Pancakes"));
-console.log (brent.eat("Orange Juice"));
-console.log (brent.eat("Popcorn"));
-console.log (brent.eat("Chicken"));
-console.log (brent.eat("Pizza"));
-console.log (brent.eat("Roastbeef"));
-console.log (brent);
-console.log (brent.poop())
-console.log (brent)
+console.log("Task 1 - ", jack);
+console.log (jack.eat("Cereal"));
+console.log (jack.eat("Bacon"));
+console.log (jack.eat("Milk"));
+console.log (jack.eat("Banana"));
+console.log (jack.eat("Sausage"));
+console.log (jack.eat("Pancakes"));
+console.log (jack.eat("Orange Juice"));
+console.log (jack.eat("Popcorn"));
+console.log (jack.eat("Chicken"));
+console.log (jack.eat("Pizza"));
+console.log (jack.eat("Roastbeef"));
+console.log (jack);
+console.log (jack.poop());
+console.log (jack);
 
 /*
   TASK 2
@@ -115,7 +115,7 @@ class Car {
       return `You have ${this.tank} gallons left and can go ${driveableDistance-distance} more miles.`
     } else {
       this.odometer = this.odometer + driveableDistance;
-      this.tank = this.tank - (driveableDistance/this.milesPerGallon);
+      this.tank = 0;
       return `I ran out of fuel at ${this.odometer} miles!`;
     }
   }
@@ -123,7 +123,9 @@ class Car {
 
 
 const matrix = new Car("Toyota Matrix", 25);
-console.log ("Task 2", matrix);
+
+
+console.log ("Task 2 - ", matrix);
 console.log (matrix.fill(10));
 console.log (matrix);
 console.log (matrix.drive(150));
@@ -148,10 +150,17 @@ class Lambdasian {
     this.location = attributes.location;
   }
   speak(){
-    return `Hello my name is ${this.name}, I am from ${this.location}`;
+    return `Hello my name is ${this.name}, I am from ${this.location}.`;
   }
 }
 
+const brent = new Lambdasian({
+  name: "Brent",
+  age: 32,
+  location: "Layton, UT"
+});
+
+console.log("Task 3 - ", brent.speak());
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -166,9 +175,33 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(instructAttrs){
+    super(instructAttrs);
+    this.specialty = instructAttrs.specialty;
+    this.favLanguage = instructAttrs.favLanguage;
+    this.catchPhrase = instructAttrs.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`
+  }
+  grade(studentObj, subject){
+    return `${studentObj.name} receives a perfect score on ${subject}`;
+  }
 }
+
+const brit = new Instructor ({
+  name: "Brit",
+  age: 25,
+  location: "Canada, EH",
+  specialty: "JavaScript",
+  favLanguage: "JavaScript",
+  catchPhrase: "Let's learn to code"
+});
+
+console.log("Task 4 - ", brit);
+console.log(brit.demo("CSS"));
+
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -184,8 +217,22 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-   
+class Student extends Lambdasian {
+  constructor(studentAttrs) {
+    super(studentAttrs);
+    this.previousBackground = studentAttrs.previousBackground;
+    this.className = studentAttrs.className;
+    this.favSubjects = studentAttrs.favSubjects;
+  }
+  listSubjects(){
+    return `Loving ${this.favSubjects[0]}, ${this.favSubjects[1]}, and ${this.favSubjects[2]}!`;
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`;
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun spring challenge on ${subject}`
+  }
 }
 
 /*
@@ -201,8 +248,18 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-   
+class ProjectManager extends Instructor {
+  constructor(projAttrs){
+    super(projAttrs);
+    this.gradClassName = projAttrs.gradClassName;
+    this.favInstructor = projAttrs.favInstructor;
+  }
+  standUp(slackChannel){
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`;
+  } 
+  debugsCode(studentObj, subject){
+    return `${this.name} debugs ${studentObj.name}'s code on ${subject}`;
+  }
 }
 /*
   STRETCH PROBLEM (no tests!)
